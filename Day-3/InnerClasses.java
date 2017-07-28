@@ -1,4 +1,10 @@
 /*
+ * Create a class with an inner class that has a non-default constructor 
+ * (one that takes arguments). Create a second class with an inner class 
+ * that inherits from the first inner class.
+ */
+
+/*
  * Here we have created two nested class, the inner class has its own custom constructor
  * which is taking string as a parameter.
  */

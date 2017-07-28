@@ -1,4 +1,11 @@
+
+/*
+ * Create a Cycle interface, with implementations Unicycle, Bicycle and Tricycle. 
+ * Create factories for each type of Cycle, and code that uses these factories.
+ */
+
 package practice;
+
 /*
  * Interface of cycle having a method called ride
  */
