@@ -28,8 +28,7 @@ class InvalidSalaryException extends Exception{
  */
 public class Exceptions {
 	
-	static void check(int age, int marks, int salary) throws InvalidAgeException, 
-													InvalidMarksException, InvalidSalaryException{
+	static void check(int age, int marks, int salary) throws InvalidAgeException, InvalidMarksException, InvalidSalaryException{
 		
 		/*
 		 * If the age provided here is less than 18 then the user is not allowed
@@ -87,3 +86,4 @@ public class Exceptions {
 		}
 	}
 }
+
