@@ -34,9 +34,9 @@ public class VampireNumber {
 
         int low = tens;
         
-        // the upper bound of the first fang will be minimum 
-        // of (n/low) and sqrt(n) 
-        int high = Math.min(n / low, (int) (Math.sqrt(n)));
+        // the upper bound of the first fang will be sqrt(n) 
+        
+        int high = (int)Math.sqrt(n);
     	
         
         int a, b;	// a and b are two fangs
