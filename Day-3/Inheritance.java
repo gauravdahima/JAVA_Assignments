@@ -18,13 +18,11 @@ class Rodent{
 		System.out.println("Rodent Constructor.");
 	}
 	
-	public void eat(){
-		System.out.println("Rodent is eating.");
-	}
+	// method is abstract
+	public void eat() {}
 	
-	public void jump(){
-		System.out.println("Rodent is jumping.");
-	}
+	// method is abstract
+	public void jump() {}
 }
 
 class Hamster extends Rodent{
