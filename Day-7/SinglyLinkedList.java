@@ -166,6 +166,25 @@ public class SinglyLinkedList {
 		System.out.println(s1); 	// Printing the empty list.
 		
 		it.remove(head);			// trying to remove from an empty list.
-		System.out.println(s1);		// printing the empty list. 
+		System.out.println(s1);		// printing the empty list.
+		
+		
+		/*
+		 * Output : 
+		 * 
+		 * List is empty !!
+		 * 1213 
+		 * 1213 1213546 
+		 * 1213 1213546 46 
+		 * 1213 1213546 
+		 * 1213 
+		 * 1213 9999 
+		 * 1213 
+		 * List is empty !!
+		 * Nothing to remove, list is empty !!!
+		 * List is empty !!
+		 * 
+		 */
 	}
 }
+
