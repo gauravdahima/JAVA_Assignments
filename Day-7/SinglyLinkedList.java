@@ -58,9 +58,9 @@ class SList<T>{
 		SListIterator<T> it = iterator();
 		String s = "";
 		while(it.hasNext()){
-			s = s + it.next() + " ";
+			s = s + it.next() + " -->";
 		}
-		return s+"";
+		return s+"END";
 	}
 	
 	SListIterator<T> iterator(){
@@ -69,25 +69,24 @@ class SList<T>{
 }
 
 /*
- * This is an iterator class. It has an instance variable of type Node<T> which
- * points to the current node with which we are working. 
- * It has a constructor which points the curr variable to the starting of the 
+ * This is an iterator class. It has two instance variable of type Node<T> one of which
+ * points to the current node and other points to the head of the list. 
+ * It has a constructor which points the curr and head variable to the starting of the 
  * linkedList(i.e. the head of the LinkedList).
  * This class has four methods: 
  * hasNext() : Checks whether the list has next node or not.
  * next() : returns the next node of the list.
- * insert(Node<T>, T) : It takes the head of the list and a data value as its 
- * 						parameter and traverse all the way to the end of the list
- * 						and insert the new node in the end of the list.
- * remove(Node<T>) : It takes the head of the list as parameter and removes the last 
- * 						node of the list.
+ * insert(T) : It takes the data value as its parameter and traverse all the 
+ * 			   way to the end of the list and insert the new node in the end 
+ * 			   of the list.
+ * remove() : It removes the last node of the list.
  */
 
 class SListIterator<T>{
 	Node<T> curr;
-	
+	Node<T> head;
 	public SListIterator(Node<T> head) {
-		this.curr = head;
+		this.curr = this.head = head;
 	}
 	
 	public boolean hasNext(){
@@ -104,23 +103,27 @@ class SListIterator<T>{
 		return curr;
 	}
 	
-	public void insert(Node<T> head,T data){
+	public void insert(T data){
+		Node<T> temp = head;
 		Node<T> newNode = new Node<T>(data);
-		while(head.next != null){
-			head = head.next;
+		while(temp.next != null){
+			temp = temp.next;
 		}
-		head.next = newNode;
+		temp.next = newNode;
+		System.out.println("Inserted "+data);
 	}
 	
-	public void remove(Node<T> head){
-		if(head.next == null){
+	public void remove(){
+		Node<T> temp =head;
+		if(temp.next == null){
 			System.out.println("Nothing to remove, list is empty !!!");
 			return ;
 		}
-		while(head.next.next != null){
-			head = head.next;
+		while(temp.next.next != null){
+			temp = temp.next;
 		}
-		head.next = null;
+		System.out.println("Removed: "+temp.next.data);
+		temp.next = null;
 	}
 	
 }
@@ -137,49 +140,55 @@ public class SinglyLinkedList {
 		SList<Integer> s1 = new SList<Integer>();
 		SListIterator<Integer> it = s1.iterator();
 		
-		Node<Integer> head = s1.head;
-		
 		System.out.println(s1); 	// printing the empty list.
-		it.insert(head,1213);   	// inserting 1213 to the list.
+		it.insert(1213);   	// inserting 1213 to the list.
 		
 		System.out.println(s1);
-		it.insert(head,1213546);	// inserting 1213546 to the end of the list. 
+		it.insert(1213546);	// inserting 1213546 to the end of the list. 
 		
 		System.out.println(s1);
-		it.insert(head,46);			// inserting 46 to the end of the list.
+		it.insert(46);			// inserting 46 to the end of the list.
 		
 		System.out.println(s1);		
-		it.remove(head);			// removing a node from the end of the list.
+		it.remove();			// removing a node from the end of the list.
 		
 		System.out.println(s1);
-		it.remove(head);			// removing another node from the end of the list.
+		it.remove();			// removing another node from the end of the list.
 		
 		System.out.println(s1);
-		it.insert(head,9999);		// adding a 9999 in the end of the list.
+		it.insert(9999);		// adding a 9999 in the end of the list.
 		
 		System.out.println(s1);
-		it.remove(head);			// removing a node from the end of the list.
+		it.remove();			// removing a node from the end of the list.
 		
 		System.out.println(s1);
-		it.remove(head);			// removing a node from the end of the list.
+		it.remove();			// removing a node from the end of the list.
 		
 		System.out.println(s1); 	// Printing the empty list.
 		
-		it.remove(head);			// trying to remove from an empty list.
+		it.remove();			// trying to remove from an empty list.
 		System.out.println(s1);		// printing the empty list.
 		
 		
 		/*
-		 * Output : 
+		 * Output :
 		 * 
 		 * List is empty !!
-		 * 1213 
-		 * 1213 1213546 
-		 * 1213 1213546 46 
-		 * 1213 1213546 
-		 * 1213 
-		 * 1213 9999 
-		 * 1213 
+		 * Inserted 1213
+		 * 1213 -->END
+		 * Inserted 1213546
+		 * 1213 -->1213546 -->END
+		 * Inserted 46
+		 * 1213 -->1213546 -->46 -->END
+		 * Removed: 46
+		 * 1213 -->1213546 -->END
+		 * Removed: 1213546
+		 * 1213 -->END
+		 * Inserted 9999
+		 * 1213 -->9999 -->END
+		 * Removed: 9999
+		 * 1213 -->END
+		 * Removed: 1213
 		 * List is empty !!
 		 * Nothing to remove, list is empty !!!
 		 * List is empty !!
