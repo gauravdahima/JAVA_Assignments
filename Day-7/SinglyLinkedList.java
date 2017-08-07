@@ -76,17 +76,18 @@ class SList<T>{
  * This class has four methods: 
  * hasNext() : Checks whether the list has next node or not.
  * next() : returns the next node of the list.
- * insert(T) : It takes the data value as its parameter and traverse all the 
- * 			   way to the end of the list and insert the new node in the end 
- * 			   of the list.
- * remove() : It removes the last node of the list.
+ * insert(T) : It takes the data value as its parameter and add the node in front of 
+ * 			   current node. Time Complexity : O(1)
+ * remove() : It removes the last node of the list and update the curr pointer.
+ * 			  Time Complexity : O(n)
  */
 
 class SListIterator<T>{
 	Node<T> curr;
 	Node<T> head;
 	public SListIterator(Node<T> head) {
-		this.curr = this.head = head;
+		this.curr = head;
+		this.head = head;
 	}
 	
 	public boolean hasNext(){
@@ -103,18 +104,19 @@ class SListIterator<T>{
 		return curr;
 	}
 	
-	public void insert(T data){
-		Node<T> temp = head;
-		Node<T> newNode = new Node<T>(data);
-		while(temp.next != null){
-			temp = temp.next;
-		}
-		temp.next = newNode;
-		System.out.println("Inserted "+data);
+	/*
+	 * Time complexity of inserting a node : O(1)
+	 */
+	public void insert(T data) {
+		System.out.println("Inserting "+data);
+		curr.next = new Node<T>(data);
+		curr = curr.next;
 	}
-	
+	/*
+	 * Time complexity of removing a node : O(n) 
+	 */
 	public void remove(){
-		Node<T> temp =head;
+		Node<T> temp = head;
 		if(temp.next == null){
 			System.out.println("Nothing to remove, list is empty !!!");
 			return ;
@@ -122,7 +124,8 @@ class SListIterator<T>{
 		while(temp.next.next != null){
 			temp = temp.next;
 		}
-		System.out.println("Removed: "+temp.next.data);
+		curr = temp;
+		System.out.println("Removing: "+temp.next.data);
 		temp.next = null;
 	}
 	
