@@ -18,6 +18,7 @@ import java.util.regex.PatternSyntaxException;
  * from the user, until user wants to quit.
  */
 public class Assign1 {
+	private static boolean match = false;
 	static Scanner sc;
 	public static void main(String[] args) throws IOException{
 		
@@ -28,7 +29,7 @@ public class Assign1 {
 			 * Input should be in the form of int. InputMismatchException will be thrown 
 			 * if input other than int is provided.
 			 */
-			System.out.println("Choose from the following options :");
+			System.out.println("\nChoose from the following options :");
 			System.out.println("1. Enter a regular expression for looking matching files.");
 			System.out.println("2. Quit.");
 			
@@ -64,10 +65,7 @@ public class Assign1 {
 	 * Function to find the matching files based on the regular expression
 	 * provided by the user. PatternSyntaxException will be thrown if the syntax
 	 * of the regular expression is incorrect.
-	 * Firstly, an array of all the files in the current folder is created and then 
-	 * for each file if the pattern is found in the filename then its full path will
-	 * be printed, and in case of no matching file corresponding message will be printed
-	 * on the screen.
+	 * Array of files is passed to a recursive function.
 	 */
 	public static void findMatchingFiles() throws IOException{
 		System.out.println("Enter a regular expression : ");
@@ -78,37 +76,47 @@ public class Assign1 {
 		 * is syntactically correct or not.
 		 */
 		try{
-			Pattern pattern = Pattern.compile(regex);
-			Matcher matcher ;
+			
 			/*
 			 * Array of files is created. It consists of files as well as directory.
 			 */
-			File current_folder = new File(".");
+			String userHome = System.getProperty( "user.home" );
+			File current_folder = new File(userHome);
 			File[] fileList = current_folder.listFiles();
-			
 			System.out.println("\nMatching files are : ");
-			int countMatching = 0;
-			/*
-			 * Loop for checking the pattern in each of the filename present in the
-			 * current directory.
-			 */
-			for(int i=0;i<fileList.length ;i++){
-				matcher = pattern.matcher(fileList[i].getName());
-				if(matcher.find() == true){
-					System.out.println(fileList[i].getCanonicalPath());
-					countMatching++;
-				}
-			}
 			
-			if(countMatching == 0){
+			recursivelyFindMatchingFiles(fileList,regex);
+			if(match == false){
 				System.out.println("There are no matching files.");
 			}
-			System.out.println();
 			
 		}
 		catch(PatternSyntaxException e){
 //			e.printStackTrace();
 			System.out.println("\njava.util.regex.PatternSyntaxException: Entered regular expression is invalid.\n");
+		}
+	}
+	/*
+	 * Function to find the matching files Recursively in the home directory.
+	 */
+	public static void recursivelyFindMatchingFiles(File[] fileList, String regex) throws IOException{
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher ;
+		for(int i=0;i<fileList.length ;i++){
+			matcher = pattern.matcher(fileList[i].getName());
+			if(matcher.find() == true){
+				match = true;
+				if(fileList[i].isDirectory()){
+					System.out.println("Directory : "+fileList[i].getCanonicalPath());
+				}
+				else{
+					System.out.println("File : "+fileList[i].getCanonicalPath());
+				}
+			}
+			
+			if(fileList[i].isDirectory()){
+				recursivelyFindMatchingFiles(fileList[i].listFiles(), regex);
+			}
 		}
 	}
 }
